@@ -1,0 +1,70 @@
+form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .mb-3 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: .25rem .5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    box-sizing: border-box;
+    transition: all .2s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #000;
+    outline: none;
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, .25);
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: .25rem .5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+  }
+  
+  .btn:hover {
+    background-color: #00000014;
+  }
+  
+  .btn:active {
+    background-color: #00000028;
+  }
+  body {
+    background-color: #f8f9fa; /* Color de fondo personalizado */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh;
+  }
+
+  .card {
+    width: 900px; /* Ancho personalizado */
+    max-width: 100%; /* Máximo ancho personalizado */
+    background-color: #ffffff; /* Color de fondo de la tarjeta */
+    padding: 30px; /* Espacio interno para el contenido */
+  }
