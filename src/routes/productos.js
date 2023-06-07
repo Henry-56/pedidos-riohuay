@@ -14,14 +14,26 @@ router.get('/productos', async function(req, res) {
   try {
     const productos = await productosController.list();
     const categorias = await categoriasController.list();
+    let productosFiltrados = productos;
+    //console.log(categorias)
+
+    // Verificar si hay una categoría seleccionada en el parámetro de consulta
+    const categoriaSeleccionada = parseInt(req.query.categoria);
+    console.log(categoriaSeleccionada)
+    if (categoriaSeleccionada) {
+      productosFiltrados = productos.filter(producto => producto.categoria_id === categoriaSeleccionada);
+    }
+    console.log(productosFiltrados);
     res.render('productos', {
-      data: productos,
+      data: productosFiltrados,
       categorias: categorias
     });
+    
   } catch (err) {
     res.status(500).send(err);
   }
 });
+
 
 
 

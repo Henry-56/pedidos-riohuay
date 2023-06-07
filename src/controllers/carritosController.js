@@ -54,6 +54,10 @@ async function save(data) {
     carrito.cantidad += parseInt(data.cantidad);
     carrito.total += data.cantidad * producto.precio;
     await carrito.save();
+
+    // Actualizar cantidad en la tabla Productos
+    producto.cantidad -= parseInt(data.cantidad);
+    await producto.save();  
     
     return carrito;
   } catch (error) {

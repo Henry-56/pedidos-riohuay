@@ -36,25 +36,37 @@
 <!-- Start Content -->
 <div class="container py-5">
   <div class="row">
-
-   
+    <div class="col-lg-3">
+      <h1 class="h2 pb-4">Categorias</h1>
+      <ul class="list-unstyled templatemo-accordion">
+        <% categorias.forEach(function(categoria) { %>
+          <li class="pb-3">
+            <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="/productos?categoria=<%= categoria.id %>">
+              <%= categoria.nombre %>
+              <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+    
 
       <div class="col-lg-9">
-          
-          
            <!-- Empieza las carts-->
            <div class="row">
             <% data.forEach(function(product) { %>
               <div class="col-md-4">
                 <div class="card mb-4 product-wap rounded-0">
                   <div class="card rounded-0">
-                    <img class="card-img rounded-0 img-fluid custom-image" src="<%= product.img_url %>" id="custom-image">
+                    <img class="card-img rounded-0 img-fluid" src="<%= product.img_url %>" id="custom-image">
                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                       <ul class="list-unstyled">
                         <li>
                           <form id="add-to-cart-form" action="/carrito/add" method="post" >
                             <input type="hidden" name="id_producto" value="<%= product.id %>">
-                            <input type="number" name="cantidad" id="cantidad" value="1" min="1">
+                            <input type="number" name="cantidad" id="cantidad" value="1" min="1" max="<%= product.cantidad %>" data-cantidad-disponible="<%= product.cantidad %>">
+                            <span id="error-cantidad" class="text-danger"></span>
+                            
                             <input type="number" name="precio" value="<%= product.precio %>" id="precio" min="1" step="0.01" style="display: none;">
                             <button type="submit" class="btn btn-success text-white mt-2"><i class="fas fa-cart-plus"></i></button>
 
@@ -97,6 +109,31 @@
   </div>
 </div>
 <!-- End Content -->
+<script>
+  const form = document.getElementById('add-to-cart-form');
+  const cantidadInput = document.getElementById('cantidad');
+  const errorCantidad = document.getElementById('error-cantidad');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const cantidadSeleccionada = parseInt(cantidadInput.value);
+    const cantidadDisponible = parseInt(cantidadInput.dataset.cantidadDisponible);
+
+    if (cantidadSeleccionada <= 0 || isNaN(cantidadSeleccionada)) {
+      errorCantidad.textContent = 'Seleccione una cantidad válida.';
+      return;
+    }
+
+    if (cantidadSeleccionada > cantidadDisponible) {
+      errorCantidad.textContent = 'La cantidad seleccionada excede la cantidad disponible.';
+      return;
+    }
+
+    // Si pasa todas las validaciones, enviar el formulario
+    form.submit();
+  });
+</script>
 
 
 
